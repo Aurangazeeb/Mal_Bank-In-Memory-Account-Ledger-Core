@@ -67,3 +67,13 @@ All timestamps are in GST (Gulf Standard Time, UTC+4), matching the operational 
   * Day 6: E9 reversal of E7 (+620.00 AED). Capitalized interest credited: 0.67 AED for ACC-001 (closing 260.67 AED) and 0.008 BHD for ACC-002 (closing 10.008 BHD).
 - Authored integration test suite in `tests/test_replay.py` (7 tests passing, 26 total passing across suite).
 - Authored internal decision record `./dr/05-replay-and-reporting/decision_record.md`.
+
+---
+
+### 2026-10-11 12:05:00 GST — Phase 6: The Intentional Annotated Failing Test
+- Designed intentional failing test `tests/test_failing_retro_capitalization_boundary.py` fulfilling the mandatory Part 1 deliverable ("One failing test against your own design, inline-annotated with what it reveals").
+- Target architectural tension: "Closed-Period Capitalization Invariant vs. Unbounded Retroactive Back-Dated Entries".
+- Scenario modeled: An unnotified back-dated clearing debit of AED 1,000.00 with `value_date = Day 1` arrives on Day 7, after Day 6 interest has already been finalized and capitalized as an immutable ledger credit (AED 0.67).
+- Demonstrated that post-facto re-evaluation reveals the true accruals across Days 1–6 were AED 0.00, causing `sum(accruals) == capitalized_event.amount` to fail (AED 0.00 != AED 0.67).
+- Provided extensive inline annotations explaining why an append-only ledger without an enterprise Prior-Period Adjustment (PPA) subsystem or hard value-dating cutoff window cannot reconcile finalized closed periods.
+- Authored internal decision record `./dr/06-intentional-failing-test/decision_record.md`.
