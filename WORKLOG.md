@@ -51,3 +51,19 @@ All timestamps are in GST (Gulf Standard Time, UTC+4), matching the operational 
 - Implemented append-only compensating reversal for E9 referencing E7 with value date Day 2, preserving immutable audit trail.
 - Authored unit test suite in `tests/test_clearing.py` (4 tests passing, 19 total passing across suite).
 - Authored internal decision record `./dr/04-clearing-and-reversals/decision_record.md`.
+
+---
+
+### 2026-10-11 11:45:00 GST — Phase 5: Six-Day Event Stream Replay & Daily Reporter
+- Implemented `LedgerReplayEngine` in `src/ledger/replay.py` sequentially executing events E1 through E10 across Day 1 to Day 6.
+- Implemented formatted daily reporting displaying closing ledger balance, fee assessments, authorization states (requests, holds, declines), and operational notices/errors.
+- Created executable runner script `run_replay.py` meeting Part 1 exercise requirements.
+- Confirmed all daily snapshots:
+  * Day 1: Credit 1200, Debit 950 -> Closing 250.00 AED, Interest 0.10 AED.
+  * Day 2: Auth-A 200 hold placed -> Closing 250.00 AED, Available 50.00 AED.
+  * Day 3: Credit 400 -> Closing 650.00 AED, Available 450.00 AED.
+  * Day 4: Auth-A settles for 185.00 AED (hold released), Auth-Z force-posts for 180.00 AED -> Closing 285.00 AED.
+  * Day 5: E7 back-dated debit 620.00 AED (Day 2 value_date) drives balance to -335.00 AED. Auth-B for 90.00 AED declined under Rule 5. Overdraft fee 25.00 AED assessed -> Closing -360.00 AED. ACC-002 credited 10.000 BHD in 3 instalments [3.334, 3.333, 3.333]. Day 2 closing balance evaluated at end of Day 5 verified as -370.00 AED.
+  * Day 6: E9 reversal of E7 (+620.00 AED). Capitalized interest credited: 0.67 AED for ACC-001 (closing 260.67 AED) and 0.008 BHD for ACC-002 (closing 10.008 BHD).
+- Authored integration test suite in `tests/test_replay.py` (7 tests passing, 26 total passing across suite).
+- Authored internal decision record `./dr/05-replay-and-reporting/decision_record.md`.
