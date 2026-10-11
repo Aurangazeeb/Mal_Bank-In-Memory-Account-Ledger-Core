@@ -20,3 +20,13 @@ All timestamps are in GST (Gulf Standard Time, UTC+4), matching the operational 
 - Implemented `allocate_instalments()` implementing the Hamilton-Hare remainder-preserving algorithm to ensure strict conservation of money across fractional instalments.
 - Verified and refuted flawed criterion: 3 x 3.334 BHD = 10.002 BHD (+0.002 BHD phantom creation); correct allocation is 3.334 + 3.333 + 3.333 = 10.000 BHD.
 - Authored unit test suite in `tests/test_money.py` (5 tests passing).
+
+---
+
+### 2026-10-11 10:45:00 GST — Phase 2: Append-Only Event Store & Dual-Balance Projections
+- Implemented immutable `Event` dataclass with frozen slots and monotonically increasing `sequence_id`.
+- Implemented `Account` aggregate tracking currency, opening balance, and active authorization holds.
+- Implemented `EventStore` enforcing append-only immutability and bifurcated balances (`ledger_balance` vs `available_balance`).
+- Implemented authorization processing strictly enforcing Rule 5: approved only if available balance minus requested hold remains $\ge 0$.
+- Verified that authorization holds affect available balance while isolating ledger balance.
+- Authored unit test suite in `tests/test_event_store.py` (6 tests passing, 11 total passing across suite).
