@@ -1,6 +1,13 @@
 """Package initialization for in-memory ledger core."""
 
 from src.ledger.account import Account, AuthorizationHold
+from src.ledger.clearing import (
+    ClearingEngine,
+    ReversalError,
+    ReversalResult,
+    SettlementError,
+    SettlementResult,
+)
 from src.ledger.eod import (
     DAILY_INTEREST_RATE,
     OVERDRAFT_FEE_AED,
@@ -24,6 +31,7 @@ __all__ = [
     "AuthorizationHold",
     "AuthorizationResult",
     "AuthStatus",
+    "ClearingEngine",
     "Currency",
     "CurrencyMismatchError",
     "DAILY_INTEREST_RATE",
@@ -36,5 +44,9 @@ __all__ = [
     "LedgerError",
     "Money",
     "OVERDRAFT_FEE_AED",
+    "ReversalError",
+    "ReversalResult",
+    "SettlementError",
+    "SettlementResult",
     "allocate_instalments",
 ]
