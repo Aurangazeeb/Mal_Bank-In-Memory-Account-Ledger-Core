@@ -1,0 +1,34 @@
+# Decision records directory (strictly untracked per submission rules)
+dr/
+/dr/
+
+# Internal workspace briefs, assignment prompts, and tracking plans (untracked)
+part_1_build.md
+part_2_document.md
+what.md
+PLAN.md
+ROADMAP.md
+
+# Python cache and build artifacts (strictly untracked)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Environments and tooling artifacts (strictly untracked)
+.venv/
+venv/
+ENV/
+.env
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.bak
