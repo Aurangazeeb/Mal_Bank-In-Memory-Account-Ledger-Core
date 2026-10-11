@@ -30,3 +30,13 @@ All timestamps are in GST (Gulf Standard Time, UTC+4), matching the operational 
 - Implemented authorization processing strictly enforcing Rule 5: approved only if available balance minus requested hold remains $\ge 0$.
 - Verified that authorization holds affect available balance while isolating ledger balance.
 - Authored unit test suite in `tests/test_event_store.py` (6 tests passing, 11 total passing across suite).
+
+---
+
+### 2026-10-11 11:05:00 GST — Phase 3: Dual-Date Engine & End-of-Day (EOD) Processing
+- Implemented `EODEngine` orchestrating daily closing ledger balance evaluation ($value\_date \le current\_day$), overdraft fees, and interest accrual.
+- Implemented daily overdraft fee rules: AED 25.00 assessed once per calendar day per account when closing balance is negative, booked with `value_date = current_day`.
+- Implemented daily interest accrual at 0.04% on positive closing ledger balance with banker's rounding to currency precision.
+- Implemented Day 6 interest capitalization reconciling the sum of rounded daily accruals with the capitalized total credit ($\sum \text{Daily Accruals} \equiv \text{Capitalized Total}$).
+- Authored unit test suite in `tests/test_eod.py` (4 tests passing, 15 total passing across suite).
+- Authored internal decision record `./dr/03-dual-date-and-eod/decision_record.md`.
