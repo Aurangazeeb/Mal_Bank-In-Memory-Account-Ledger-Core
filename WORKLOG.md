@@ -39,7 +39,7 @@ All timestamps are in GST (Gulf Standard Time, UTC+4), matching the operational 
 - Implemented daily interest accrual at 0.04% on positive closing ledger balance with banker's rounding to currency precision.
 - Implemented Day 6 interest capitalization reconciling the sum of rounded daily accruals with the capitalized total credit ($\sum \text{Daily Accruals} \equiv \text{Capitalized Total}$).
 - Authored unit test suite in `tests/test_eod.py` (4 tests passing, 15 total passing across suite).
-- Authored internal decision record `./dr/03-dual-date-and-eod/decision_record.md`.
+
 
 ---
 
@@ -50,7 +50,7 @@ All timestamps are in GST (Gulf Standard Time, UTC+4), matching the operational 
 - Refuted flawed criterion demanding rejection of unmatched settlements.
 - Implemented append-only compensating reversal for E9 referencing E7 with value date Day 2, preserving immutable audit trail.
 - Authored unit test suite in `tests/test_clearing.py` (4 tests passing, 19 total passing across suite).
-- Authored internal decision record `./dr/04-clearing-and-reversals/decision_record.md`.
+
 
 ---
 
@@ -66,7 +66,7 @@ All timestamps are in GST (Gulf Standard Time, UTC+4), matching the operational 
   * Day 5: E7 back-dated debit 620.00 AED (Day 2 value_date) drives balance to -335.00 AED. Auth-B for 90.00 AED declined under Rule 5. Overdraft fee 25.00 AED assessed -> Closing -360.00 AED. ACC-002 credited 10.000 BHD in 3 instalments [3.334, 3.333, 3.333]. Day 2 closing balance evaluated at end of Day 5 verified as -370.00 AED.
   * Day 6: E9 reversal of E7 (+620.00 AED). Capitalized interest credited: 0.67 AED for ACC-001 (closing 260.67 AED) and 0.008 BHD for ACC-002 (closing 10.008 BHD).
 - Authored integration test suite in `tests/test_replay.py` (7 tests passing, 26 total passing across suite).
-- Authored internal decision record `./dr/05-replay-and-reporting/decision_record.md`.
+
 
 ---
 
@@ -76,7 +76,7 @@ All timestamps are in GST (Gulf Standard Time, UTC+4), matching the operational 
 - Scenario modeled: An unnotified back-dated clearing debit of AED 1,000.00 with `value_date = Day 1` arrives on Day 7, after Day 6 interest has already been finalized and capitalized as an immutable ledger credit (AED 0.67).
 - Demonstrated that post-facto re-evaluation reveals the true accruals across Days 1–6 were AED 0.00, causing `sum(accruals) == capitalized_event.amount` to fail (AED 0.00 != AED 0.67).
 - Provided extensive inline annotations explaining why an append-only ledger without an enterprise Prior-Period Adjustment (PPA) subsystem or hard value-dating cutoff window cannot reconcile finalized closed periods.
-- Authored internal decision record `./dr/06-intentional-failing-test/decision_record.md`.
+
 
 ---
 
@@ -91,5 +91,11 @@ All timestamps are in GST (Gulf Standard Time, UTC+4), matching the operational 
     - Full authorization lifecycle state machine (match, TTL expiry, merchant 0400 reversal, over-settlement, force-post, administrative release).
     - Transparent register of scope cuts and deferred production risks.
   * `README.md`: Authored comprehensive execution guide, daily report reading breakdown, lifecycle summary table, and invariant guarantees.
-- Authored internal decision record `./dr/07-documentation-architecture/decision_record.md`.
 - Verified all passing tests (26 passed) and verified the annotated failing test fails as intended with clean diagnostic output.
+
+---
+
+### 2026-10-13 01:10:00 GST — Architecture & Trade-offs PDF Deliverable Generation
+- Synthesized all architectural decisions, scaling considerations, UAE regulatory rules, authorization state machines, and scope trade-offs into `Architecture_and_Trade-offs.pdf`.
+- Formatted as an executive-ready, 4-page technical architecture document strictly satisfying all prompts in `part_2_document.md` without referencing internal decision records.
+- Verified document structure, typography, diagram layouts, and page balance.
